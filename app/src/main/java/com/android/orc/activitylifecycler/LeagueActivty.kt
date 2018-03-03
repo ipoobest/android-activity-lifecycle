@@ -7,13 +7,15 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.android.orc.activitylifecycler.util.EXTRA_LEAGUE
+import com.android.orc.activitylifecycler.util.EXTRA_PLAYER
 import kotlinx.android.synthetic.main.activity_league.*
+import model.Player
 
 class LeagueActivty : AppCompatActivity(), View.OnClickListener {
 
 
     val TAG = "LifeCycler"
-    var selectLeague = ""
+    var player = Player("", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,28 +64,28 @@ class LeagueActivty : AppCompatActivity(), View.OnClickListener {
         if (v == btnMensLeague) {
             btnWomensLeague.isChecked = false
             btnCoLeague.isChecked = false
-            selectLeague = "Mens"
+            player.league = "Mens"
 
         } else if (v == btnWomensLeague) {
             btnMensLeague.isChecked = false
             btnCoLeague.isChecked = false
-            selectLeague = "Womens"
+            player.league = "Womens"
 
         } else if (v == btnCoLeague) {
             btnMensLeague.isChecked = false
             btnWomensLeague.isChecked = false
-            selectLeague = "Co-ed"
+            player.league = "Co-ed"
         }
     }
 
 
     fun leagueOnClick(view: View) {
 
-        if (selectLeague == null) {
+        if (player.league == null) {
             Toast.makeText(this, "Please select League", Toast.LENGTH_SHORT).show()
         } else {
             val SkillActivity = Intent(this, SkillActivity::class.java)
-            SkillActivity.putExtra(EXTRA_LEAGUE, selectLeague)
+            SkillActivity.putExtra(EXTRA_PLAYER, player)
             startActivity(SkillActivity)
         }
     }
